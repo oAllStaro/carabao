@@ -1,0 +1,277 @@
+<?php header('Content-Type: text/html; charset=TIS-620'); ?>
+<?php
+include("../assets/include/connection.php");
+$cmd = '';
+if (isset($_POST['cmd'])) {
+    $cmd = $_POST['cmd'];
+}
+//$stmt = "SELECT * FROM st_user";
+// $query = sqlsrv_query($conn, $stmt);
+//sqlsrv_close($conn);
+?>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>รายงานข้อมูลจุดรวมพล</title>
+        <?php include("../assets/include/includeMeta.php"); ?>
+        <?php include("../assets/include/includeCSS.php"); ?>
+    </head>
+    <body>
+        <form class="form-horizontal" method="POST" name="crbform" id="crbform" >
+		<input type="hidden" name="cmd" id="cmd">
+        <div class="container">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="page-header">
+                            <h1 id="container">รายงานข้อมูลจุดรวมพล</h1>
+                        </div>
+                        <div class="jumbotron">
+                            
+                                <fieldset>
+                                    <legend>Filter</legend>
+                                    <div class="form-group">
+                                        <label class="col-lg-1 control-label">วันที่ *</label>
+                                        <div class="col-lg-3">
+                                            <div class="">
+                                                <div class='input-group' id='datetimepicker2' data-date-format="dd-mm-yyyy">
+                                                    <input type="text" class="form-control" name="startdate" id="startdate" size="10" placeholder="DD-MM-YYYY">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1"  align="center"><label class="control-label">ถึง</label></div>
+                                        <div class="col-lg-3">
+                                            <div class="">
+                                                <div class='input-group' id='datetimepicker2' data-date-format="dd-mm-yyyy">
+                                                    <input type="text" class="form-control" name="enddate" id="enddate" size="10" placeholder="DD-MM-YYYY">
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <label class="col-lg-1 control-label">PDCA</label>
+                                        <div class="col-lg-3">
+                                            <input type="checkbox" name="pdca" id="pdac" value="">
+                                        </div>
+                                        <div class="col-lg-3"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-1 control-label">เสนาธิการ</label>
+                                        <div class="col-lg-3">
+                                            <select class=" selectpicker show-tick" data-live-search="true" name="" id="">
+                                                <option data-tokens="" value="">-- เลือก --</option><!--data-tokens คือ key word สำครับ search -->
+                                            </select>
+                                        </div>
+                                        <label class="col-lg-1 control-label">ทหารเสือ</label>
+                                        <div class="col-lg-3">
+                                            <select class=" selectpicker show-tick" data-live-search="true" name="" id="">
+                                                <option data-tokens="" value="">-- เลือก --</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-lg-1 control-label">ขุนศึก</label>
+                                        <div class="col-lg-3">
+                                            <select class=" selectpicker show-tick" data-live-search="true" name="" id="">
+                                                <option data-tokens="" value="">-- เลือก --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-1 control-label">ภาค</label>
+                                        <div class="col-lg-3">
+                                            <select class=" selectpicker show-tick" data-live-search="true" name="" id="">
+                                                <option data-tokens="" value="">-- เลือกภาค --</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-lg-1 control-label">จังหวัด</label>
+                                        <div class="col-lg-3">
+                                            <select class=" selectpicker show-tick" data-live-search="true" name="" id="">
+                                                <option data-tokens="" value="">-- เลือกจังหวัด --</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-lg-1 control-label">อำเภอ</label>
+                                        <div class="col-lg-3">
+                                            <select class=" selectpicker show-tick" data-live-search="true" name="" id="">
+                                                <option data-tokens="" value="">-- เลือกอำเภอ --</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-1 control-label">ตำบล</label>
+                                        <div class="col-lg-3">
+                                            <select class=" selectpicker show-tick" data-live-search="true" name="" id="">
+                                                <option data-tokens="" value="">-- เลือกตำบล --</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-lg-1 control-label">ประเภท</label>
+                                        <div class="col-lg-3">
+                                            <select class=" selectpicker show-tick" data-live-search="true" name="" id="">
+                                                <option data-tokens="" value="">-- เลือกประเภท --</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-lg-1 control-label">สถานที่</label>
+                                        <div class="col-lg-3">
+                                            <select class=" selectpicker show-tick" data-live-search="true" name="" id="">
+                                                <option data-tokens="" value="">-- ชื่อสถานที่ --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            
+
+                            <p align = "center">
+                                <a class="btn btn-primary btn-lg" id="Preview" onclick="preview()">Preview</a>&nbsp;
+                                <a class="btn btn-success btn-lg" id="Export" onclick="setFilter('EX')">Export</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div id="__Data"></div>	
+         <div >
+		  <?php
+            if ($cmd == "search") {
+                ?>
+            <table id="exportTable" class="preview">
+                <thead>
+                    <tr>
+                        <th class="preview ghostwhite" nowrap rowspan="2">ลำดับ</th>
+                        <th class="preview ghostwhite" nowrap rowspan="2">วัน/เดือน/ปี</th>
+                        <th class="preview ghostwhite" nowrap rowspan="2">รหัสจุดรวมพล</th>
+                        <th class="preview ghostwhite" nowrap rowspan="2">ประเภทสถาที่</th>
+                        <th class="preview ghostwhite" nowrap rowspan="2">ชื่อสถานที่</th>
+                        <th class="preview ghostwhite" nowrap rowspan="2">หมู่</th>
+                        <th class="preview ghostwhite" nowrap rowspan="2">ตำบล</th>
+                        <th class="preview ghostwhite" nowrap rowspan="2">อำเภอ</th>
+                        <th class="preview ghostwhite" nowrap rowspan="2">จังหวัด</th>
+                        <th class="preview ghostwhite" nowrap rowspan="2">GPS</th>
+                        <th class="preview ghostwhite" nowrap rowspan="2">ชื่อคนติดต่อ</th>
+                        <th class="preview ghostwhite" nowrap rowspan="2">เบอร์โทร</th>
+                        <th class="preview ghostwhite" nowrap rowspan="2">จำนวนร้าน(ปลีก)</th>
+                        <th class="preview ghostwhite" nowrap rowspan="2">จำนวนร้าน(ส่ง)</th>
+                        <th class="preview ghostwhite" nowrap rowspan="2">กลุ่มเป้าหมาย</th>
+                        <th class="preview ghostwhite" nowrap rowspan="2">จำนวน (คน)</th>
+                        <th class="preview green" nowrap colspan="3">เพศ</th>
+                        <th class="preview green" nowrap colspan="3">สัญชาติ</th>
+                        <th class="preview skyblue" nowrap colspan="7">ช่วงเวลาที่เหมาะสมทำกิจกรรม</th>                   
+                    </tr>
+                    <tr>
+                        <th class = "preview green" nowrap ><div class="verticaltext-green">ชายมากกว่าหญิง</div></th> 
+                        <th class = "preview green" nowrap ><div class="verticaltext-green">หญิงมากกว่าชาย</div></th>
+                        <th class = "preview green" nowrap ><div class="verticaltext-green">ชายหญิงเท่ากัน</div></th>
+                        <th class = "preview green" nowrap ><div class="verticaltext-green">ไทย</div></th>
+                        <th class = "preview green" nowrap ><div class="verticaltext-green">พม่า</div></th>
+                        <th class = "preview green" nowrap ><div class="verticaltext-green">เขมร</div></th>    
+                        <th class = "preview skyblue" nowrap ><div class="verticaltext-green">วัน (1)</div></th>  
+                        <th class = "preview skyblue" nowrap ><div class="verticaltext-green">วัน (2)</div></th>
+                        <th class = "preview skyblue" nowrap ><div class="verticaltext-green">วัน (3)</div></th>  
+                        <th class = "preview skyblue" nowrap ><div class="verticaltext-green">เดือน (1)</div></th>   
+                        <th class = "preview skyblue" nowrap ><div class="verticaltext-green">ช่วงเวลา (1)</div></th> 
+                        <th class = "preview skyblue" nowrap ><div class="verticaltext-green">ช่วงเวลา (2)</div></th>                         
+                        <th class = "preview skyblue" nowrap ><div class="verticaltext-green">ช่วงเวลา (3)</div></th>                              
+                    </tr>                   
+                </thead>
+				  <?php
+                        $num = 1;
+                        $sql = "select * from VW_CR002";
+                        $query = sqlsrv_query($conn, $sql);
+                        while ($result = sqlsrv_fetch_array($query, SQLSRV_FETCH_ASSOC)) {
+                   ?>
+				   <tr>
+						<td  nowrap  class="preview"><?php echo $num; ?></td> 
+                        <td  nowrap  class="preview"><?php echo $result["CreateDate"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["Assembly_Id"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["Type_Name"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["Assembly_Name"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["Assembly_Moo"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["DISTRICT_NAME"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["AMPHUR_NAME"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["PROVINCE_NAME"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["Latitude"]; ?> <?php echo $result["Longitude"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["Assembly_Contact"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["Assembly_Phone"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["Retail_Amount"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["Wholesale_Amount"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["Question"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["total_ans"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["G1"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["G2"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["G3"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["Y1"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["Y2"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["Y3"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["day1"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["day2"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["day3"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["Month"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["FirstTime1"]; ?> - <?php echo $result["SecondTime1"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["FirstTime2"]; ?> - <?php echo $result["SecondTime2"]; ?></td> 
+						<td  nowrap  class="preview"><?php echo $result["FirstTime3"]; ?> - <?php echo $result["SecondTime3"]; ?></td> 
+				   </tr>
+					<?php
+					$num++;
+				}
+				?>
+            </table>  
+			<?php
+			}
+			?>
+        </div>
+        </form>
+    </body>
+    <footer>
+        <input type="hidden" name="__cmd" id="__cmd" value="">
+        <?php include("../assets/include/includeJS.php"); ?>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var satrtdate_input = $('input[name="startdate"]');
+                var enddate_input = $('input[name="enddate"]');
+                var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+                satrtdate_input.datepicker({
+                    format: 'dd-mm-yyyy',
+                    container: container,
+                    todayHighlight: true,
+                    autoclose: true,
+                    language: 'th',
+                    clearBtn: true,
+                    keyboardNavigation: true,
+                });
+                enddate_input.datepicker({
+                    format: 'dd-mm-yyyy',
+                    container: container,
+                    todayHighlight: true,
+                    autoclose: true,
+                    language: 'th',
+                    clearBtn: true,
+                    keyboardNavigation: true,
+                });
+				$("#Preview").click(function(){					
+					preview();
+				});
+				
+            });
+
+            function setFilter(type) {
+                with(document.crbform){
+                    var filter = "";
+                    alert(startdate.value);
+                
+                //goPage('CR002_' + type + '.php', filter);
+                }
+            }
+
+			function preview() {
+                with (document.crbform) {
+                    cmd.value = "search";
+                    submit();
+                }
+            }
+        </script>
+    </footer>
+</html>
+

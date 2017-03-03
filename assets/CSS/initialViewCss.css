@@ -1,0 +1,41 @@
+table.preview {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th.preview , td.preview  {
+	text-align: center;
+	text-valign: middle;
+	padding: 8px;
+	color: blask;
+}
+
+tr.preview :nth-child(even){background-color: #f2f2f2}
+
+td.preview, th.preview {
+	border: 1px solid black;
+}
+.green { 
+	background-color: #66CD00;
+}
+.ghostwhite { 
+	background-color: #F5F5F5;
+}
+.gray { 
+	background-color: #E8E8E8;
+}
+.skyblue{ 
+	background-color: #87CEEB;
+}
+.verticaltext-green { 
+	display:block;
+	writing-mode: tb-rl;
+	filter: flipv fliph;
+	-webkit-transform: rotate(-180deg); 
+	-moz-transform: rotate(-180deg); 
+	transform: rotate(-180deg); 
+	position:relative; 
+	width:20px;
+	white-space:nowrap;
+	margin-bottom:10px;
+}
